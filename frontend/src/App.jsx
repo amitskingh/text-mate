@@ -16,8 +16,6 @@ import PrivateRoutes from "./component/Auth"
 import NotFound from "./component/NotFound"
 
 function App() {
-  const [isExpiredToken, setIsExpiredToken] = useState(true)
-
   return (
     <>
       <Router>
