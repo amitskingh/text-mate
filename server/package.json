@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is the text editiog app.",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
