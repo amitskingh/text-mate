@@ -4,6 +4,7 @@ const connectDB = require("./db/connect.js")
 require("express-async-errors")
 require("dotenv").config()
 const cors = require("cors")
+const path = require("path")
 
 const errorHandlerMiddleware = require("./middleware/error-handler.js")
 const notFoundError = require("./middleware/not-found.js")
@@ -13,6 +14,9 @@ const bookRouter = require("./route/book.js")
 const noteRouter = require("./route/note.js")
 const authRouter = require("./route/auth.js")
 const authenticateUser = require("./middleware/authentication.js")
+
+app.use(express.static(path.join(__dirname, "/client/dist")))
+app.get("*", (req, res) => res.sendFile(path.join(__dirname, "/client/dist")))
 
 app.use(express.json())
 app.use(cors())
