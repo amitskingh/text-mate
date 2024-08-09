@@ -7,6 +7,8 @@ import { useNavigate } from "react-router-dom"
 import Navbar from "./Navbar"
 import { getHeaders } from "./GetHeaders"
 
+const URL = process.env.API_URL
+
 function Books() {
   const navigate = useNavigate()
   let [bookList, setBookList] = useState([])
@@ -14,7 +16,7 @@ function Books() {
   const getAllBooks = async () => {
     const headers = getHeaders()
     try {
-      const response = await axios.get("http://localhost:3000/api/v1/books", {
+      const response = await axios.get(`${URL}/api/v1/books`, {
         headers: headers,
       })
       const totalBook = response.data
@@ -40,12 +42,9 @@ function Books() {
     event.preventDefault()
     try {
       const headers = getHeaders()
-      const response = await axios.delete(
-        `http://localhost:3000/api/v1/books/${bookId}`,
-        {
-          headers: headers,
-        }
-      )
+      const response = await axios.delete(`${URL}/api/v1/books/${bookId}`, {
+        headers: headers,
+      })
       const newBookList = bookList.filter(
         (item) => item.bookId !== response.data._id
       )

@@ -11,6 +11,8 @@ import { getHeaders } from "./GetHeaders"
 
 const Delta = Quill.import("delta")
 
+const URL = process.env.API_URL
+
 function __Quill() {
   const [range, setRange] = useState()
   const [lastChange, setLastChange] = useState()
@@ -30,7 +32,7 @@ function __Quill() {
         const headers = getHeaders()
         const { bookId, noteId } = req
         const response = await axios.get(
-          `http://localhost:3000/api/v1/books/${bookId}/notes/${noteId}`,
+          `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
           { headers: headers }
         )
 
@@ -60,7 +62,7 @@ function __Quill() {
       const headers = getHeaders()
       const { bookId, noteId } = req
       const response = await axios.patch(
-        `http://localhost:3000/api/v1/books/${bookId}/notes/${noteId}`,
+        `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
         { title: title, content: content },
         { headers: headers }
       )

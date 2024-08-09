@@ -3,6 +3,8 @@ import { useRef } from "react"
 import { getHeaders } from "./GetHeaders"
 import { useNavigate } from "react-router-dom"
 
+const URL = process.env.API_URL
+
 function BookInput({ getAllBooks }) {
   const navigate = useNavigate()
   const bookRef = useRef()
@@ -13,7 +15,7 @@ function BookInput({ getAllBooks }) {
     try {
       const headers = getHeaders()
       await axios.post(
-        `http://localhost:3000/api/v1/books/`,
+        `${URL}/api/v1/books/`,
         { subject: bookRef.current.value },
         {
           headers: headers,

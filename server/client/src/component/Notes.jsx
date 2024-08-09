@@ -6,6 +6,8 @@ import { IoCreateOutline } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
 import { getHeaders } from "./GetHeaders"
 
+const URL = process.env.API_URL
+
 function Notes({ bookId }) {
   const navigate = useNavigate()
   const bookNameRef = useRef()
@@ -15,12 +17,9 @@ function Notes({ bookId }) {
   const getAllNotes = async () => {
     try {
       const headers = getHeaders()
-      const response = await axios.get(
-        `http://localhost:3000/api/v1/books/${bookId}/notes`,
-        {
-          headers: headers,
-        }
-      )
+      const response = await axios.get(`${URL}/api/v1/books/${bookId}/notes`, {
+        headers: headers,
+      })
       const totalNote = response.data
       const newNoteList = totalNote.map((item) => ({
         noteId: item._id,
@@ -49,7 +48,7 @@ function Notes({ bookId }) {
     try {
       const headers = getHeaders()
       const response = await axios.delete(
-        `http://localhost:3000/api/v1/books/${bookId}/notes/${noteId}`,
+        `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
         {
           headers: headers,
         }
@@ -70,7 +69,7 @@ function Notes({ bookId }) {
       const title = bookNameRef.current.value
       const headers = getHeaders()
       const response = await axios.post(
-        `http://localhost:3000/api/v1/books/${bookId}/notes`,
+        `${URL}/api/v1/books/${bookId}/notes`,
         { title: title, content: "" },
         {
           headers: headers,
