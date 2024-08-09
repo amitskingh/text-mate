@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is the text editiog app.",
   "scripts": {
-    "start": "node app.js",
+    "server": "node app.js",
     "build": "npm install --prefix ./client && npm run build --prefix ./ client && npm install"
   },
   "author": "",
