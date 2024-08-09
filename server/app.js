@@ -16,6 +16,9 @@ const authRouter = require("./route/auth.js")
 const authenticateUser = require("./middleware/authentication.js")
 
 app.use(express.static(path.join(__dirname, "client", "dist")))
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
+})
 
 app.use(express.json())
 app.use(cors())
@@ -26,11 +29,7 @@ app.use("/api/v1/books", authenticateUser, noteRouter)
 app.use(notFoundError)
 app.use(errorHandlerMiddleware)
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
-})
-
-const port = process.env.PORT || 3000
+const port = 3000
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI)
