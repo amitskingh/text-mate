@@ -15,10 +15,12 @@ const noteRouter = require("./route/note.js")
 const authRouter = require("./route/auth.js")
 const authenticateUser = require("./middleware/authentication.js")
 
-app.use(express.static(path.join(__dirname, "client", "dist")))
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
-})
+app.use(express.static(path.join(__dirname, 'client', 'dist')));
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'));
+});
+
 
 app.use(express.json())
 app.use(cors())
