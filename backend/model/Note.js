@@ -7,11 +7,6 @@ const noteSchema = new mongoose.Schema({
   },
   content: {
     type: String,
-    default: `{[
-  { insert: 'Hello ' },
-  { insert: 'World!', attributes: { bold: true } },
-  { insert: '\n' },
-]}`,
   },
   createdUnder: {
     type: mongoose.Types.ObjectId,
