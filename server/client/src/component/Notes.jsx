@@ -6,7 +6,7 @@ import { IoCreateOutline } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
 import { getHeaders } from "./GetHeaders"
 
-const URL = process.env.API_URL
+const URL = import.meta.env.VITE_API_URL
 
 function Notes({ bookId }) {
   const navigate = useNavigate()

@@ -3,7 +3,7 @@ import { useRef } from "react"
 import { getHeaders } from "./GetHeaders"
 import { useNavigate } from "react-router-dom"
 
-const URL = process.env.API_URL
+const URL = import.meta.env.VITE_API_URL
 
 function BookInput({ getAllBooks }) {
   const navigate = useNavigate()

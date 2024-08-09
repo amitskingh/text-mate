@@ -4,7 +4,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import { getHeaders } from "./GetHeaders"
 
-const URL = process.env.API_URL
+const URL = import.meta.env.VITE_API_URL
 
 function Form() {
   const navigate = useNavigate()

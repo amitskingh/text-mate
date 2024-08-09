@@ -11,7 +11,7 @@ import { getHeaders } from "./GetHeaders"
 
 const Delta = Quill.import("delta")
 
-const URL = process.env.API_URL
+const URL = import.meta.env.VITE_API_URL
 
 function __Quill() {
   const [range, setRange] = useState()

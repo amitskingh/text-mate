@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom"
 import Navbar from "./Navbar"
 import { getHeaders } from "./GetHeaders"
 
-const URL = process.env.API_URL
+const URL = import.meta.env.VITE_API_URL
 
 function Books() {
   const navigate = useNavigate()
