@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import { Outlet, Navigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
 
 const isTokenExpired = (token) => {
@@ -15,6 +15,7 @@ const isTokenExpired = (token) => {
 }
 
 const PrivateRoutes = () => {
+  const navigate = useNavigate()
   // null means loading, true or false means checked
   const [isValidToken, setIsValidToken] = useState(null)
 
@@ -32,12 +33,10 @@ const PrivateRoutes = () => {
     }
   }, [])
 
-
   if (isValidToken === null) {
-    return <div>Loading...</div>
+    return navigate("/login", { replace: true })
   }
 
-  return isValidToken ? <Outlet /> : <Navigate to="/login" />
+  return isValidToken ? <Outlet /> : navigate("/login", { replace: true })
 }
-
 export default PrivateRoutes
