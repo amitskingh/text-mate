@@ -1,36 +1,33 @@
-import { useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import styles from "./FormInfo.module.css"
 import { useRef } from "react"
 
 function Form({ handleFormInfo }) {
-  const location = useLocation()
-  const navigate = useNavigate()
+  const nameElement = useRef()
+  const emailElement = useRef()
+  const passwordElement = useRef()
 
-  const isNewUser = location.pathname === "/register"
-
-  const nameElement = useRef("")
-  const emailElement = useRef("")
-  const passwordElement = useRef("")
-
+  let isNewUser = window.location.href.includes("register")
+  console.log(isNewUser, window.location.href)
   const handleSubmitButton = (event) => {
     event.preventDefault()
-
-    handleFormInfo(
-      nameElement.current.value,
-      emailElement.current.value,
-      passwordElement.current.value,
-      isNewUser
-    )
-
-    // if (isNewUser) {
-    //   nameElement.current.value = ""
-    // }
-    // emailElement.current.value = ""
-    // passwordElement.current.value = ""
+    isNewUser = window.location.href.includes("register")
+    if (isNewUser) {
+      handleFormInfo(
+        nameElement.current.value,
+        emailElement.current.value,
+        passwordElement.current.value,
+        isNewUser
+      )
+    } else {
+      handleFormInfo(
+        "",
+        emailElement.current.value,
+        passwordElement.current.value,
+        isNewUser
+      )
+    }
   }
-
-  const switchToRegister = () => navigate("/register")
-  const switchToLogin = () => navigate("/login")
 
   return (
     <div className={`container-sm ${styles["form-container"]}`}>
@@ -87,22 +84,22 @@ function Form({ handleFormInfo }) {
           {isNewUser ? (
             <p>
               Already a member?{" "}
-              <span
+              <Link
+                to="/login"
                 className={`${styles["form-login-register-toggle"]}`}
-                onClick={switchToLogin}
               >
                 Login
-              </span>
+              </Link>
             </p>
           ) : (
             <p>
               Not a member yet?{" "}
-              <span
+              <Link
+                to="/register"
                 className={`${styles["form-login-register-toggle"]}`}
-                onClick={switchToRegister}
               >
                 Register
-              </span>
+              </Link>
             </p>
           )}
         </div>

@@ -1,11 +1,9 @@
 // Books.js
 import { useEffect, useState } from "react"
-import BookInput from "./BookInput"
 import BookItem from "./BookItem"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
-import Navbar from "./Navbar"
-import { getHeaders } from "./GetHeaders"
+import CreateBook from "./CreateBook"
 
 const URL = import.meta.env.VITE_API_URL
 
@@ -14,10 +12,9 @@ function Books() {
   let [bookList, setBookList] = useState([])
 
   const getAllBooks = async () => {
-    const headers = getHeaders()
     try {
       const response = await axios.get(`${URL}/api/v1/books`, {
-        headers: headers,
+        withCredentials: true,
       })
       const totalBook = response.data
       const newBookList = totalBook.map((item) => ({
@@ -26,6 +23,8 @@ function Books() {
       }))
       setBookList(newBookList)
     } catch (error) {
+      console.log(error)
+      console.log(error.response.status)
       if (error.response.status === 401) {
         navigate("/login")
       } else if (error.response.status === 404) {
@@ -36,14 +35,13 @@ function Books() {
 
   useEffect(() => {
     getAllBooks()
-  }, []) // Empty dependency array ensures this effect runs once on component mount
+  }, [])
 
   const handleDeleteButton = async (event, bookId) => {
     event.preventDefault()
     try {
-      const headers = getHeaders()
       const response = await axios.delete(`${URL}/api/v1/books/${bookId}`, {
-        headers: headers,
+        withCredentials: true,
       })
       const newBookList = bookList.filter(
         (item) => item.bookId !== response.data._id
@@ -61,7 +59,7 @@ function Books() {
   return (
     <>
       <center className="book-section container">
-        <BookInput getAllBooks={getAllBooks}></BookInput>
+        <CreateBook getAllBooks={getAllBooks} />
         <div></div>
         <div className="book-list">
           {bookList.map((item) => (
@@ -70,7 +68,7 @@ function Books() {
               key={item.bookId}
               bookId={item.bookId}
               bookName={item.bookName}
-            ></BookItem>
+            />
           ))}
         </div>
       </center>

@@ -4,7 +4,6 @@ import axios from "axios"
 
 import { IoCreateOutline } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
-import { getHeaders } from "./GetHeaders"
 
 const URL = import.meta.env.VITE_API_URL
 
@@ -16,9 +15,8 @@ function Notes({ bookId }) {
 
   const getAllNotes = async () => {
     try {
-      const headers = getHeaders()
       const response = await axios.get(`${URL}/api/v1/books/${bookId}/notes`, {
-        headers: headers,
+        withCredentials: true
       })
       const totalNote = response.data
       const newNoteList = totalNote.map((item) => ({
@@ -41,24 +39,21 @@ function Notes({ bookId }) {
   useEffect(() => {
     getAllNotes()
   }, [])
-  // Empty dependency array ensures this effect runs once on component mount
 
   const deleteNote = async (event, noteId) => {
     event.preventDefault()
     try {
-      const headers = getHeaders()
-      const response = await axios.delete(
-        `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
-        {
-          headers: headers,
-        }
-      )
+      await axios.delete(`${URL}/api/v1/books/${bookId}/notes/${noteId}`, {
+        withCredentials: true
+      })
       getAllNotes()
     } catch (error) {
       if (error.response.status === 401) {
         navigate("/login")
       } else if (error.response.status === 404) {
         navigate("/not-found")
+      } else {
+        navigate("/")
       }
     }
   }
@@ -67,12 +62,14 @@ function Notes({ bookId }) {
     event.preventDefault()
     try {
       const title = bookNameRef.current.value
-      const headers = getHeaders()
       const response = await axios.post(
         `${URL}/api/v1/books/${bookId}/notes`,
-        { title: title, content: "" },
         {
-          headers: headers,
+          title: title,
+          content: "",
+        },
+        {
+          withCredentials: true,
         }
       )
 
@@ -97,7 +94,6 @@ function Notes({ bookId }) {
 
   return (
     <>
-      {/* <Navbar></Navbar> */}
       <center>
         <div ref={warningRef} className="warning-message"></div>
         <div className="container note-input-container">

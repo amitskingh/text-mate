@@ -1,19 +1,15 @@
 import React, { useEffect, useRef, useState } from "react"
 
 import Editor from "./Editor"
-import Quill from "quill"
 import styles from "./QuillEditor.module.css"
 
 import "quill/dist/quill.snow.css"
 import { useNavigate, useParams } from "react-router-dom"
 import axios from "axios"
-import { getHeaders } from "./GetHeaders"
-
-const Delta = Quill.import("delta")
 
 const URL = import.meta.env.VITE_API_URL
 
-function __Quill() {
+function QuillEditor() {
   const [range, setRange] = useState()
   const [lastChange, setLastChange] = useState()
   const [readOnly, setReadOnly] = useState(false)
@@ -29,11 +25,9 @@ function __Quill() {
   useEffect(() => {
     const getNote = async () => {
       try {
-        const headers = getHeaders()
         const { bookId, noteId } = req
         const response = await axios.get(
-          `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
-          { headers: headers }
+          `${URL}/api/v1/books/${bookId}/notes/${noteId}`
         )
 
         noteTitleElement.current.value = response.data.title
@@ -59,12 +53,10 @@ function __Quill() {
     const content = JSON.stringify(quillRef.current.getContents())
 
     try {
-      const headers = getHeaders()
       const { bookId, noteId } = req
       const response = await axios.patch(
         `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
-        { title: title, content: content },
-        { headers: headers }
+        { title: title, content: content }
       )
 
       warningRef.current.innerText = ""
@@ -73,8 +65,10 @@ function __Quill() {
     } catch (error) {
       if (error.response.status === 400) {
         warningRef.current.innerText = "Please Provide the title"
-      } else {
+      } else if (error.response.status === 401) {
         navigate("/login")
+      } else if (error.response.status === 404) {
+        navigate("/not-found")
       }
     }
   }
@@ -117,4 +111,4 @@ function __Quill() {
   )
 }
 
-export default __Quill
+export default QuillEditor

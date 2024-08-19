@@ -5,13 +5,10 @@ const User = require("../model/User")
 
 const register = asyncWrapper(async (req, res) => {
   const user = await User.create({ ...req.body })
+
   const token = user.createJWT()
 
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "strict",
-  })
+  res.cookie("token", token, { httpOnly: true, secure: true })
 
   res.status(201).json({ user: { name: user.name }, token })
 })
@@ -30,11 +27,8 @@ const login = asyncWrapper(async (req, res) => {
   }
 
   const token = user.createJWT()
-  res.cookie("token", token, {
-    httpOnly: true,
-    secure: true,
-    sameSite: "strict",
-  })
+
+  res.cookie("token", token, { httpOnly: true, secure: true })
 
   res.status(200).json({ user: { name: user.name }, token })
 })

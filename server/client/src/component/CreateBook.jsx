@@ -1,11 +1,10 @@
 import axios from "axios"
 import { useRef } from "react"
-import { getHeaders } from "./GetHeaders"
 import { useNavigate } from "react-router-dom"
 
 const URL = import.meta.env.VITE_API_URL
 
-function BookInput({ getAllBooks }) {
+function CreateBook({ getAllBooks }) {
   const navigate = useNavigate()
   const bookRef = useRef()
   const warningRef = useRef()
@@ -13,13 +12,12 @@ function BookInput({ getAllBooks }) {
   const createNewBook = async (event) => {
     event.preventDefault()
     try {
-      const headers = getHeaders()
       await axios.post(
         `${URL}/api/v1/books/`,
-        { subject: bookRef.current.value },
         {
-          headers: headers,
-        }
+          subject: bookRef.current.value,
+        },
+        { withCredentials: true }
       )
 
       bookRef.current.value = ""
@@ -57,4 +55,4 @@ function BookInput({ getAllBooks }) {
   )
 }
 
-export default BookInput
+export default CreateBook

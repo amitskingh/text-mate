@@ -5,6 +5,8 @@ const { NotFoundError } = require("../errors")
 // retuning the book that comes under the userId
 const getAllBooks = async (req, res) => {
   const { userId } = req.user
+  console.log(userId)
+
   const books = await Book.find({ createdBy: userId })
   res.status(200).json(books)
 }

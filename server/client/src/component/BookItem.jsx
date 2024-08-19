@@ -33,6 +33,7 @@ const BookItem = ({ bookId, bookName, handleDeleteButton }) => {
           ></DeleteButton>
         </div>
       </div>
+
       <div className="collapse" id={bookId}>
         <div className="card card-body">
           <Notes bookId={bookId}></Notes>
