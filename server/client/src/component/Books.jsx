@@ -13,11 +13,11 @@ function Books() {
 
   const getAllBooks = async () => {
     try {
-      console.log("Fetching books...")
+      // console.log("Fetching books...")
       const response = await axios.get(`${URL}/api/v1/books`, {
         withCredentials: true,
       })
-      console.log("Books fetched successfully:", response)
+      // console.log("Books fetched successfully:", response)
       const totalBook = response.data
       const newBookList = totalBook.map((item) => ({
         bookId: item._id,
@@ -25,9 +25,9 @@ function Books() {
       }))
       setBookList(newBookList)
     } catch (error) {
-      console.error("Error fetching books:", error)
+      // console.error("Error fetching books:", error)
       if (error.response) {
-        console.error("Response status:", error.response.status)
+        // console.error("Response status:", error.response.status)
       }
       if (error.response.status === 401) {
         navigate("/login")

@@ -3,11 +3,11 @@ const { UnauthenticatedError } = require("../errors")
 const jwt = require("jsonwebtoken")
 
 const auth = async (req, res, next) => {
-  console.log(req.signedCookies.token, req.cookies)
+  // console.log(req.signedCookies.token, req.cookies)
   const token = req.cookies?.token
 
   if (!token) {
-    console.log("No token")
+    // console.log("No token")
     throw new UnauthenticatedError("Access denied, please login")
   }
 

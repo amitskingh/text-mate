@@ -8,7 +8,7 @@ function Form({ handleFormInfo }) {
   const passwordElement = useRef()
 
   let isNewUser = window.location.href.includes("register")
-  console.log(isNewUser, window.location.href)
+  // console.log(isNewUser, window.location.href)
   const handleSubmitButton = (event) => {
     event.preventDefault()
     isNewUser = window.location.href.includes("register")

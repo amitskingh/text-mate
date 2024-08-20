@@ -18,10 +18,10 @@ function Form() {
       userInfo.name = name
     }
 
-    console.log(userInfo)
+    // console.log(userInfo)
     // determine the endpoint
     const endpoint = isNewUser ? "register" : "login"
-    console.log(endpoint, userInfo)
+    // console.log(endpoint, userInfo)
     try {
       // POST request to backend API
       const response = await axios.post(

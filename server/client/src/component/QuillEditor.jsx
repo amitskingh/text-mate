@@ -37,7 +37,7 @@ function QuillEditor() {
         quillRef.current.setContents(JSON.parse(response.data.content))
         // quillRef.current.setContents(response.data.content)
       } catch (error) {
-        console.log(error)
+        // console.log(error)
 
         if (error.response.status === 401) {
           navigate("/login")

@@ -6,15 +6,20 @@ require("dotenv").config()
 const cors = require("cors")
 const path = require("path")
 const cookieParser = require("cookie-parser")
+const helmet = require("helmet")
+const xss = require("xss-clean")
 
+const ServerError = require("./errors/server-error.js")
 const errorHandlerMiddleware = require("./middleware/error-handler.js")
 const notFoundError = require("./middleware/not-found.js")
 
 const corsOptions = {
-  origin: "http://localhost:5173", // Replace with your frontend's URL
+  origin: "http://localhost:5173", // Frontend's URL
   credentials: true,
 }
 
+app.use(helmet())
+app.use(xss())
 app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
@@ -48,7 +53,8 @@ const start = async () => {
       console.log(`Server is listening on port ${port}`)
     })
   } catch (error) {
-    console.log(error)
+    throw new ServerError("Server error")
+    // console.log(error)
   }
 }
 

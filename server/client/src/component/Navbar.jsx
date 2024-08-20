@@ -37,10 +37,10 @@ function Navbar() {
       const response = await axios.get(`${URL}/api/v1/auth/logout`, {
         withCredentials: true,
       })
-      console.log(response)
+      // console.log(response)
       navigate("/")
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       navigate("/")
     }
   }
