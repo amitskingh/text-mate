@@ -17,9 +17,9 @@ const corsOptions = {
   credentials: true,
 }
 
+app.use(cors(corsOptions))
 app.use(helmet())
 app.use(xss())
-app.use(cors(corsOptions))
 app.use(cookieParser())
 app.use(express.json())
 
