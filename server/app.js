@@ -13,7 +13,7 @@ const errorHandlerMiddleware = require("./middleware/error-handler.js")
 const notFoundError = require("./middleware/not-found.js")
 
 const corsOptions = {
-  origin: `${FRONTEND_URL}`, // Frontend's URL
+  origin: `${process.env.FRONTEND_URL}`, // Frontend's URL
   credentials: true,
 }
 
