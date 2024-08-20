@@ -1,7 +1,5 @@
 import styles from "./NoteItem.module.css"
 import { useNavigate } from "react-router-dom"
-
-import { MdDelete } from "react-icons/md"
 import { FaRegNoteSticky } from "react-icons/fa6"
 import DeleteButton from "./DeleteButton"
 

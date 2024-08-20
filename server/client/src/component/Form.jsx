@@ -1,4 +1,3 @@
-import { useState } from "react"
 import FormInfo from "./FormInfo"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
@@ -32,6 +31,7 @@ function Form() {
       navigate("/books")
     } catch (error) {
       if (error.response.status === 401) {
+        window.alert("Wrong Credntials")
         navigate("/login")
       } else if (error.response.status === 404) {
         navigate("/not-found")
