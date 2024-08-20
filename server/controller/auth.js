@@ -1,15 +1,22 @@
 const { NotFoundError, UnauthenticatedError } = require("../errors")
-
 const asyncWrapper = require("../middleware/async")
 const User = require("../model/User")
+
+const setCookie = (res, token) => {
+  const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+  res.cookie("token", token, {
+    path: "/",
+    expires: expires,
+    httpOnly: true,
+    sameSite: "None",
+  })
+}
 
 const register = asyncWrapper(async (req, res) => {
   const user = await User.create({ ...req.body })
 
   const token = user.createJWT()
-
-  res.cookie("token", token, { httpOnly: true, secure: true })
-
+  setCookie(res, token)
   res.status(201).json({ user: { name: user.name }, token })
 })
 
@@ -23,13 +30,11 @@ const login = asyncWrapper(async (req, res) => {
 
   const isPasswordCorrect = await user.comparePassword(password)
   if (!isPasswordCorrect) {
-    throw new UnauthenticatedError("Password do not matched")
+    throw new UnauthenticatedError("Password does not match")
   }
 
   const token = user.createJWT()
-
-  res.cookie("token", token, { httpOnly: true, secure: true })
-
+  setCookie(res, token)
   res.status(200).json({ user: { name: user.name }, token })
 })
 

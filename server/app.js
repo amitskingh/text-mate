@@ -10,27 +10,26 @@ const cookieParser = require("cookie-parser")
 const errorHandlerMiddleware = require("./middleware/error-handler.js")
 const notFoundError = require("./middleware/not-found.js")
 
-// routes
-const bookRouter = require("./route/book.js")
-const noteRouter = require("./route/note.js")
-const authRouter = require("./route/auth.js")
-const authenticateUser = require("./middleware/authentication.js")
-
-app.use(cookieParser())
-// app.use(express.static(path.join(__dirname, "client", "dist")))
-
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
-// })
-
-app.use(express.json())
-
 const corsOptions = {
   origin: "http://localhost:5173", // Replace with your frontend's URL
   credentials: true,
 }
 
 app.use(cors(corsOptions))
+app.use(cookieParser())
+app.use(express.json())
+
+// routes
+const bookRouter = require("./route/book.js")
+const noteRouter = require("./route/note.js")
+const authRouter = require("./route/auth.js")
+const authenticateUser = require("./middleware/authentication.js")
+
+// app.use(express.static(path.join(__dirname, "client", "dist")))
+
+// app.get("*", (req, res) => {
+//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
+// })
 
 // app.use(cors("*"))
 app.use("/api/v1/auth", authRouter)

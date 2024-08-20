@@ -16,7 +16,7 @@ function Notes({ bookId }) {
   const getAllNotes = async () => {
     try {
       const response = await axios.get(`${URL}/api/v1/books/${bookId}/notes`, {
-        withCredentials: true
+        withCredentials: true,
       })
       const totalNote = response.data
       const newNoteList = totalNote.map((item) => ({
@@ -44,7 +44,7 @@ function Notes({ bookId }) {
     event.preventDefault()
     try {
       await axios.delete(`${URL}/api/v1/books/${bookId}/notes/${noteId}`, {
-        withCredentials: true
+        withCredentials: true,
       })
       getAllNotes()
     } catch (error) {
@@ -66,7 +66,7 @@ function Notes({ bookId }) {
         `${URL}/api/v1/books/${bookId}/notes`,
         {
           title: title,
-          content: "",
+          content: JSON.stringify(""),
         },
         {
           withCredentials: true,

@@ -27,12 +27,18 @@ function QuillEditor() {
       try {
         const { bookId, noteId } = req
         const response = await axios.get(
-          `${URL}/api/v1/books/${bookId}/notes/${noteId}`
+          `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
+          {
+            withCredentials: true,
+          }
         )
 
         noteTitleElement.current.value = response.data.title
         quillRef.current.setContents(JSON.parse(response.data.content))
+        // quillRef.current.setContents(response.data.content)
       } catch (error) {
+        console.log(error)
+
         if (error.response.status === 401) {
           navigate("/login")
         } else if (error.response.status === 404) {
@@ -56,7 +62,10 @@ function QuillEditor() {
       const { bookId, noteId } = req
       const response = await axios.patch(
         `${URL}/api/v1/books/${bookId}/notes/${noteId}`,
-        { title: title, content: content }
+        { title: title, content: content },
+        {
+          withCredentials: true,
+        }
       )
 
       warningRef.current.innerText = ""
