@@ -26,15 +26,15 @@ function Form() {
       // POST request to backend API
       const response = await axios.post(
         `${URL}/api/v1/auth/${endpoint}`,
-        userInfo
+        userInfo,
+        { withCredentials: true }
       )
-
       navigate("/books")
     } catch (error) {
       if (error.response.status === 401) {
         navigate("/login")
       } else if (error.response.status === 404) {
-        // navigate("/not-found")
+        navigate("/not-found")
       }
     }
   }

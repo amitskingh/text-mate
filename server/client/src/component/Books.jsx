@@ -33,6 +33,8 @@ function Books() {
         navigate("/login")
       } else if (error.response.status === 404) {
         navigate("/not-found")
+      } else {
+        navigate("/")
       }
     }
   }

@@ -5,10 +5,10 @@ const User = require("../model/User")
 const setCookie = (res, token) => {
   const expires = new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
   res.cookie("token", token, {
-    path: "/",
     expires: expires,
     httpOnly: true,
-    sameSite: "None",
+    secure: true,
+    sameSite: "Strict",
   })
 }
 
@@ -43,8 +43,13 @@ const logout = (req, res) => {
   res.json({ message: "Logged out successfully" })
 }
 
+const profile = (req, res) => {
+  res.status(200).json({ username: req.user.name })
+}
+
 module.exports = {
   register,
   login,
   logout,
+  profile,
 }

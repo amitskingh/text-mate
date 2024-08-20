@@ -33,6 +33,7 @@ const authenticateUser = require("./middleware/authentication.js")
 
 // app.use(cors("*"))
 app.use("/api/v1/auth", authRouter)
+app.use("/api/v1/profile", authenticateUser, authRouter)
 app.use("/api/v1/books", authenticateUser, bookRouter)
 app.use("/api/v1/books", authenticateUser, noteRouter)
 
