@@ -5,7 +5,7 @@ import axios from "axios"
 import { IoCreateOutline } from "react-icons/io5"
 import { useNavigate } from "react-router-dom"
 
-const URL = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Notes({ bookId }) {
   const navigate = useNavigate()
@@ -15,7 +15,7 @@ function Notes({ bookId }) {
 
   const getAllNotes = async () => {
     try {
-      const response = await axios.get(`${URL}/api/v1/books/${bookId}/notes`, {
+      const response = await axios.get(`${BACKEND_URL}/api/v1/books/${bookId}/notes`, {
         withCredentials: true,
       })
       const totalNote = response.data
@@ -43,7 +43,7 @@ function Notes({ bookId }) {
   const deleteNote = async (event, noteId) => {
     event.preventDefault()
     try {
-      await axios.delete(`${URL}/api/v1/books/${bookId}/notes/${noteId}`, {
+      await axios.delete(`${BACKEND_URL}/api/v1/books/${bookId}/notes/${noteId}`, {
         withCredentials: true,
       })
       getAllNotes()
@@ -63,7 +63,7 @@ function Notes({ bookId }) {
     try {
       const title = bookNameRef.current.value
       const response = await axios.post(
-        `${URL}/api/v1/books/${bookId}/notes`,
+        `${BACKEND_URL}/api/v1/books/${bookId}/notes`,
         {
           title: title,
           content: JSON.stringify(""),

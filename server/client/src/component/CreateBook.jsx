@@ -2,7 +2,7 @@ import axios from "axios"
 import { useRef } from "react"
 import { useNavigate } from "react-router-dom"
 
-const URL = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function CreateBook({ getAllBooks }) {
   const navigate = useNavigate()
@@ -13,7 +13,7 @@ function CreateBook({ getAllBooks }) {
     event.preventDefault()
     try {
       await axios.post(
-        `${URL}/api/v1/books/`,
+        `${BACKEND_URL}/api/v1/books/`,
         {
           subject: bookRef.current.value,
         },

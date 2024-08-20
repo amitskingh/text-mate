@@ -2,7 +2,7 @@ import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
-const URL = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Navbar() {
   const navigate = useNavigate()
@@ -11,7 +11,7 @@ function Navbar() {
   useEffect(() => {
     const getProfile = async () => {
       try {
-        const response = await axios.get(`${URL}/api/v1/profile`, {
+        const response = await axios.get(`${BACKEND_URL}/api/v1/profile`, {
           withCredentials: true,
         })
         setUsername(response.data.username)
@@ -33,7 +33,7 @@ function Navbar() {
     event.preventDefault()
 
     try {
-      const response = await axios.get(`${URL}/api/v1/auth/logout`, {
+      const response = await axios.get(`${BACKEND_URL}/api/v1/auth/logout`, {
         withCredentials: true,
       })
       // console.log(response)

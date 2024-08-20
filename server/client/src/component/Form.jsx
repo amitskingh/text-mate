@@ -2,7 +2,7 @@ import FormInfo from "./FormInfo"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
 
-const URL = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Form() {
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ function Form() {
     try {
       // POST request to backend API
       const response = await axios.post(
-        `${URL}/api/v1/auth/${endpoint}`,
+        `${BACKEND_URL}/api/v1/auth/${endpoint}`,
         userInfo,
         { withCredentials: true }
       )

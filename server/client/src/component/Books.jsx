@@ -5,7 +5,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 import CreateBook from "./CreateBook"
 
-const URL = import.meta.env.VITE_API_URL
+const BACKEND_URL = import.meta.env.VITE_API_URL
 
 function Books() {
   const navigate = useNavigate()
@@ -14,7 +14,7 @@ function Books() {
   const getAllBooks = async () => {
     try {
       // console.log("Fetching books...")
-      const response = await axios.get(`${URL}/api/v1/books`, {
+      const response = await axios.get(`${BACKEND_URL}/api/v1/books`, {
         withCredentials: true,
       })
       // console.log("Books fetched successfully:", response)
@@ -46,7 +46,7 @@ function Books() {
   const handleDeleteButton = async (event, bookId) => {
     event.preventDefault()
     try {
-      const response = await axios.delete(`${URL}/api/v1/books/${bookId}`, {
+      const response = await axios.delete(`${BACKEND_URL}/api/v1/books/${bookId}`, {
         withCredentials: true,
       })
       const newBookList = bookList.filter(
