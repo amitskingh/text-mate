@@ -4,7 +4,6 @@ const connectDB = require("./db/connect.js")
 require("express-async-errors")
 require("dotenv").config()
 const cors = require("cors")
-const path = require("path")
 const cookieParser = require("cookie-parser")
 const helmet = require("helmet")
 const xss = require("xss-clean")
@@ -30,13 +29,7 @@ const noteRouter = require("./route/note.js")
 const authRouter = require("./route/auth.js")
 const authenticateUser = require("./middleware/authentication.js")
 
-// app.use(express.static(path.join(__dirname, "client", "dist")))
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "client", "dist", "index.html"))
-// })
-
-// app.use(cors("*"))
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/profile", authenticateUser, authRouter)
 app.use("/api/v1/books", authenticateUser, bookRouter)
